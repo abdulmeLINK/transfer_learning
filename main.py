@@ -31,6 +31,10 @@ def train_model(model, train_loader, test_loader, scenario):
             # zero the parameter gradients
             optimizer.zero_grad()
 
+            # Access dataset item by index if needed
+            # Here, we're accessing the dataset item by batch index
+            dataset_item = train_loader.dataset[batch_idx]
+
             # forward + backward + optimize
             outputs = model(inputs)
             loss = criterion(outputs, labels)
@@ -44,6 +48,7 @@ def train_model(model, train_loader, test_loader, scenario):
         print(f"Epoch {epoch + 1}, Loss: {running_loss / len(train_loader)}")
 
     return model
+
 
 def test_model(model, test_loader):
     # Test the model
