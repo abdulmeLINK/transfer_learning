@@ -13,8 +13,9 @@ class VGG(nn.Module):
 
     @staticmethod
     def replace_output_layer(model, num_classes):
-        model.classifier[6] = nn.Linear(4096, num_classes)
+        model.model.classifier[6] = nn.Linear(4096, num_classes)
         return model
+
 
     @staticmethod
     def prune_fully_connected_layers(model, num_layers_to_prune):
