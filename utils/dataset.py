@@ -24,10 +24,7 @@ def load_dataset(test_size=0.2, batch_size=32):
     X_train, X_test, y_train, y_test = train_test_split(X_resized, lfw_people.target, test_size=test_size)
 
     # Create DataLoader objects
-    train_dataset = list(zip(X_train, y_train))
-    test_dataset = list(zip(X_test, y_test))
-    
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+    train_loader = DataLoader(list(zip(X_train, y_train)), batch_size=batch_size, shuffle=True)
+    test_loader = DataLoader(list(zip(X_test, y_test)), batch_size=batch_size, shuffle=False)
 
     return train_loader, test_loader

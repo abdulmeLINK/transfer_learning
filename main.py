@@ -88,17 +88,15 @@ if __name__ == "__main__":
     # Load and split the dataset
     train_set, test_set = load_dataset()
 
-    # Create data loaders
-    train_loader = DataLoader(train_set, batch_size=32, shuffle=True)
-    test_loader = DataLoader(test_set, batch_size=32, shuffle=False)
+
 
     model = modify_model(model, num_classes)
 
     if not args.bypass_train:
-        model = train_model(model, train_loader, test_loader, args.scenario)
+        model = train_model(model, train_set, test_set, args.scenario)
     else:
         # Load pre-trained weights
         model.load_weights(f"weights/{args.model}_Scenario{args.scenario}.pt")
 
     # Perform testing
-    test_model(model, test_loader)
+    test_model(model, test_set)
