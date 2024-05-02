@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 import torchvision.models as models
-import torch.optim as optim
 
 class ResNet(nn.Module):
     def __init__(self, num_classes):
@@ -12,12 +11,38 @@ class ResNet(nn.Module):
     def forward(self, x):
         return self.model(x)
 
-    def replace_output_layer(self, num_classes):
-        self.model.fc = nn.Linear(2048, num_classes)
+    @staticmethod
+    def replace_output_layer(model, num_classes):
+        model.fc = nn.Linear(2048, num_classes)
+        return model
 
-    def fine_tune(self):
-        # Unfreeze the parameters of the last layer for fine-tuning
-        for param in self.model.parameters():
-            param.requires_grad = False
-        for param in self.model.fc.parameters():
+    @staticmethod
+    def prune_fully_connected_layers(model, num_layers_to_prune):
+        # ResNet does not have fully connected layers to prune
+        return model
+
+    @staticmethod
+    def integrate_layers(model, new_layers):
+        # ResNet does not have fully connected layers to integrate
+        return model
+
+    def fine_tune(self, freeze_features=True, unfreeze_classifier=True):
+        if freeze_features:
+            for param in self.model.parameters():
+                param.requires_grad = False
+        if unfreeze_classifier:
+            for param in self.model.fc.parameters():
+                param.requires_grad = True
+        return self
+
+    def train_from_scratch(self):
+        for param in self.parameters():
             param.requires_grad = True
+        return self
+
+    def load_weights(self, weight_file):
+        self.load_state_dict(torch.load(weight_file))
+        return self
+
+    def save_weights(self, weight_file):
+        torch.save(self.state_dict(), weight_file)

@@ -37,33 +37,39 @@ class AlexNet(nn.Module):
         x = self.classifier(x)
         return x
     
-    def fine_tune(self):
-        # Freeze the features layers
-        for param in self.features.parameters():
-            param.requires_grad = False
-
-        # Unfreeze the classifier layers
-        for param in self.classifier.parameters():
-            param.requires_grad = True
-
-        return self
-
+    @staticmethod
     def replace_output_layer(model, num_classes):
         model.classifier[-1] = nn.Linear(4096, num_classes)
         return model
 
-def prune_fully_connected_layers(model, num_layers_to_prune):
-    classifier = list(model.classifier.children())[:-num_layers_to_prune]
-    model.classifier = nn.Sequential(*classifier)
-    return model
+    @staticmethod
+    def prune_fully_connected_layers(model, num_layers_to_prune):
+        classifier = list(model.classifier.children())[:-num_layers_to_prune]
+        model.classifier = nn.Sequential(*classifier)
+        return model
 
-def integrate_layers(model, new_layers):
-    model.classifier = nn.Sequential(*new_layers, *model.classifier.children())
-    return model
+    @staticmethod
+    def integrate_layers(model, new_layers):
+        model.classifier = nn.Sequential(*new_layers, *model.classifier.children())
+        return model
 
-def load_weights(model, weight_file):
-    model.load_state_dict(torch.load(weight_file))
-    return model
+    def fine_tune(self, freeze_features=True, unfreeze_classifier=True):
+        if freeze_features:
+            for param in self.features.parameters():
+                param.requires_grad = False
+        if unfreeze_classifier:
+            for param in self.classifier.parameters():
+                param.requires_grad = True
+        return self
 
-def save_weights(model, weight_file):
-    torch.save(model.state_dict(), weight_file)
+    def train_from_scratch(self):
+        for param in self.parameters():
+            param.requires_grad = True
+        return self
+
+    def load_weights(self, weight_file):
+        self.load_state_dict(torch.load(weight_file))
+        return self
+
+    def save_weights(self, weight_file):
+        torch.save(self.state_dict(), weight_file)
