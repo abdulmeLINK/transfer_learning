@@ -41,6 +41,7 @@ def train_model(model, train_loader, test_loader, scenario):
 
                 # forward + backward + optimize
                 outputs = model(input_data.unsqueeze(0))  # Unsqueeze to add batch dimension
+                print(outputs)
                 loss = criterion(outputs, label.unsqueeze(0))  # Unsqueeze to add batch dimension
                 loss.backward()
                 optimizer.step()
