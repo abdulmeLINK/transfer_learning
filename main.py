@@ -8,8 +8,14 @@ from models.resnet import ResNet
 from models.vgg import VGG
 
 def modify_model(model, num_classes):
-    # Replace the output layer
-    setattr(model, 'fc', nn.Linear(model.fc.in_features, num_classes))
+    # Check if the model has the attribute 'fc'
+    if hasattr(model, 'fc'):
+        # Modify the fully connected layer to have 'num_classes' output features
+        setattr(model, 'fc', nn.Linear(model.fc.in_features, num_classes))
+    else:
+        # Handle the case where the attribute 'fc' does not exist
+        raise AttributeError("The model does not have the attribute 'fc'")
+    
     return model
 
 def train_model(model, train_loader, test_loader, scenario):
