@@ -36,10 +36,21 @@ class AlexNet(nn.Module):
         x = torch.flatten(x, 1)
         x = self.classifier(x)
         return x
+    
+    def fine_tune(self):
+        # Freeze the features layers
+        for param in self.features.parameters():
+            param.requires_grad = False
 
-def replace_output_layer(model, num_classes):
-    model.classifier[-1] = nn.Linear(4096, num_classes)
-    return model
+        # Unfreeze the classifier layers
+        for param in self.classifier.parameters():
+            param.requires_grad = True
+
+        return self
+
+    def replace_output_layer(model, num_classes):
+        model.classifier[-1] = nn.Linear(4096, num_classes)
+        return model
 
 def prune_fully_connected_layers(model, num_layers_to_prune):
     classifier = list(model.classifier.children())[:-num_layers_to_prune]
