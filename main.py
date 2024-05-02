@@ -6,6 +6,8 @@ from models.alexnet import AlexNet
 from models.resnet import ResNet
 from models.vgg import VGG
 
+
+
 def modify_model(model, num_classes):
     # Try to access the 'fc' attribute
     try:
@@ -14,7 +16,7 @@ def modify_model(model, num_classes):
     except AttributeError:
         # Handle the case where the attribute 'fc' does not exist
         print("Warning: The model does not have the attribute 'fc'.")
-    
+
     return model
 
 def train_model(model, train_loader):
@@ -32,7 +34,6 @@ def train_model(model, train_loader):
 
             # forward + backward + optimize
             outputs = model(inputs)
-            print(outputs, labels)
             loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
@@ -44,8 +45,6 @@ def train_model(model, train_loader):
         print(f"Epoch {epoch + 1}, Loss: {running_loss / len(train_loader)}")
 
     return model
-
-
 
 def test_model(model, test_loader):
     # Test the model
@@ -68,9 +67,6 @@ if __name__ == "__main__":
     parser.add_argument("--scenario", choices=["1", "2", "3", "4"], default="1", help="Choose the scenario")
     parser.add_argument("--bypass_train", action="store_true", help="Bypass the training phase")
     args = parser.parse_args()
-
-     # Number of classes in your new dataset (male and female)
-
 
     # Load and split the dataset
     train_set, test_set, num_classes = load_dataset()

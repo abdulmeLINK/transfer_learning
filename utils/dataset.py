@@ -14,9 +14,11 @@ transform = transforms.Compose([
 ])
 
 def adjust_labels(labels):
-    # Subtract 1 from all labels to make them in the range [0, num_classes-1]
-    return labels - 1
-
+    # Ensure that the labels start from 0
+    min_label = min(labels)
+    if min_label > 0:
+        labels -= min_label
+    return labels
 
 
 def load_dataset(test_size=0.2, batch_size=32):
