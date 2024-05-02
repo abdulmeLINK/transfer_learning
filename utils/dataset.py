@@ -13,6 +13,14 @@ transform = transforms.Compose([
     transforms.ToTensor()  # Convert images to tensors
 ])
 
+def adjust_labels(dataset):
+    # Subtract 1 from all labels to make them in the range [0, num_classes-1]
+    for i in range(len(dataset)):
+        dataset[i][1] -= 1
+    return dataset
+
+
+
 def load_dataset(test_size=0.2, batch_size=32):
     # Load the LFW dataset
     lfw_people = fetch_lfw_people(min_faces_per_person=70, resize=0.4)
@@ -23,6 +31,10 @@ def load_dataset(test_size=0.2, batch_size=32):
 
     # Split dataset into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X_resized, lfw_people.target, test_size=test_size)
+
+    # Adjust the labels in the train and test sets
+    y_train = adjust_labels(y_train)
+    y_test = adjust_labels(y_test)
 
     # Create DataLoader objects
     train_loader = DataLoader(list(zip(X_train, y_train)), batch_size=batch_size, shuffle=True)
