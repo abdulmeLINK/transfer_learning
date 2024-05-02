@@ -86,7 +86,7 @@ if __name__ == "__main__":
     model = modify_model(model, num_classes)
 
     if not args.bypass_train:
-        model = train_model(model, train_set, test_set, args.scenario)
+        model = train_model(model, train_set)
     else:
         # Load pre-trained weights
         model.load_weights(f"weights/{args.model}_Scenario{args.scenario}.pt")
