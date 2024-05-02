@@ -8,13 +8,13 @@ from models.resnet import ResNet
 from models.vgg import VGG
 
 def modify_model(model, num_classes):
-    # Check if the model has the attribute 'fc'
-    if hasattr(model, 'fc'):
+    # Try to access the 'fc' attribute
+    try:
         # Modify the fully connected layer to have 'num_classes' output features
         setattr(model, 'fc', nn.Linear(model.fc.in_features, num_classes))
-    else:
+    except AttributeError:
         # Handle the case where the attribute 'fc' does not exist
-        raise AttributeError("The model does not have the attribute 'fc'")
+        print("Warning: The model does not have the attribute 'fc'.")
     
     return model
 
