@@ -27,27 +27,18 @@ def train_model(model, train_loader, test_loader, scenario):
     for epoch in range(10):  # loop over the dataset multiple times
         model.train()
         running_loss = 0.0
-        for batch_idx, data in enumerate(train_loader):
-            # Separate inputs and labels from data tuple
-            inputs, labels = data
-
+        for batch_idx, (inputs, labels) in enumerate(train_loader):
             # zero the parameter gradients
             optimizer.zero_grad()
 
-            # Iterate over inputs and labels
-            for i in range(len(inputs)):
-                input_data = inputs[i]
-                label = labels[i]
+            # forward + backward + optimize
+            outputs = model(inputs)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
 
-                # forward + backward + optimize
-                outputs = model(input_data.unsqueeze(0))  # Unsqueeze to add batch dimension
-                print(outputs)
-                loss = criterion(outputs, label.unsqueeze(0))  # Unsqueeze to add batch dimension
-                loss.backward()
-                optimizer.step()
-
-                # print statistics
-                running_loss += loss.item()
+            # print statistics
+            running_loss += loss.item()
 
         # Print average loss per epoch
         print(f"Epoch {epoch + 1}, Loss: {running_loss / len(train_loader)}")
