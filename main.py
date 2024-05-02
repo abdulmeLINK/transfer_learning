@@ -27,7 +27,7 @@ def train_model(model, train_loader, test_loader, scenario):
     for epoch in range(10):  # loop over the dataset multiple times
         model.train()
         running_loss = 0.0
-        for inputs, labels in train_loader:
+        for batch_idx, (inputs, labels) in enumerate(train_loader):
             # zero the parameter gradients
             optimizer.zero_grad()
 
