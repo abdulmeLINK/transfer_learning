@@ -3,9 +3,11 @@ from sklearn.model_selection import train_test_split
 import torch
 from torchvision import transforms
 from torch.utils.data import DataLoader
+from PIL import Image
 
 # Define a transform to resize images to a uniform size
 transform = transforms.Compose([
+    transforms.ToPILImage(),  # Convert NumPy array to PIL Image
     transforms.Resize((37, 50)),  # Resize images to a uniform size
     transforms.ToTensor()  # Convert images to tensors
 ])
@@ -26,3 +28,6 @@ def load_dataset(test_size=0.2, batch_size=32):
     test_loader = DataLoader(list(zip(X_test, y_test)), batch_size=batch_size, shuffle=False)
 
     return train_loader, test_loader
+
+# Now you can use this load_dataset function to get your data loaders
+train_loader, test_loader = load_dataset()
