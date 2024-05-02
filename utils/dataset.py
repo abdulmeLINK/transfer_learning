@@ -1,4 +1,5 @@
 from sklearn.datasets import fetch_lfw_people
+from sklearn.model_selection import train_test_split
 import torch
 from torchvision import transforms
 from torch.utils.data import DataLoader
