@@ -33,6 +33,7 @@ def train_model(model, train_loader):
 
             # forward + backward + optimize
             outputs = model(inputs)
+            print(outputs, labels)
             loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
