@@ -8,6 +8,7 @@ from PIL import Image
 # Define a transform to resize images to a uniform size
 transform = transforms.Compose([
     transforms.ToPILImage(),  # Convert NumPy array to PIL Image
+    transforms.Grayscale(num_output_channels=3),  # Convert images to RGB if they're grayscale
     transforms.Resize((37, 50)),  # Resize images to a uniform size
     transforms.ToTensor()  # Convert images to tensors
 ])
