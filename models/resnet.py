@@ -17,12 +17,12 @@ class ResNet(nn.Module):
         return model
 
     @staticmethod
-    def prune_fully_connected_layers(model, num_layers_to_prune):
+    def prune_fully_connected_layers(model):
         # ResNet does not have fully connected layers to prune
         return model
 
     @staticmethod
-    def integrate_layers(model, new_layers):
+    def integrate_layers(model):
         # ResNet does not have fully connected layers to integrate
         return model
 
