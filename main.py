@@ -11,11 +11,11 @@ def modify_model(model, num_classes, scenario):
     if scenario == 1:
         # Objective: Adapt the model to classify categories in the new dataset.
         # Python Implementation: Create a new output layer that matches the number of categories in your new dataset and replace the existing output layer in the model.
-        model = model.replace_output_layer(num_classes)
+        model = model.replace_output_layer(model, num_classes)
     elif scenario == 2:
         # Objective: Modify the model to better suit the new dataset.
         # Python Implementation: Prune the fully connected layers and add new layers. Train these new layers on the new dataset to learn the associated weights.
-        model = model.replace_output_layer(num_classes).fine_tune()
+        model = model.replace_output_layer(model,num_classes).fine_tune()
     elif scenario == 3:
         # Objective: Further adapt the model to the new dataset.
         # Python Implementation: Disregard the weights in the later blocks of the CNN and the replaced fully connected layers. Train these layers on the new dataset to learn new weights.
