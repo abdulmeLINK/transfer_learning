@@ -1,0 +1,3 @@
+# This file is intentionally left blank.
+# The weight parameters for ResNet in Scenario 4 will be loaded from this file.
+# Please make sure to place the weight file in this location before running the code.

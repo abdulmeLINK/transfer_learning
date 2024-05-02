@@ -1,0 +1,4 @@
+# This file is intentionally left blank.
+# The weight parameters for AlexNet in Scenario 3 will be saved here.
+# Please ensure that the weight parameters are saved in the correct format and structure.
+# The weight file should be compatible with the code that loads and uses the weights.
