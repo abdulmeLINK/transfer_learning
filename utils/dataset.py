@@ -13,11 +13,9 @@ transform = transforms.Compose([
     transforms.ToTensor()  # Convert images to tensors
 ])
 
-def adjust_labels(dataset):
+def adjust_labels(labels):
     # Subtract 1 from all labels to make them in the range [0, num_classes-1]
-    for i in range(len(dataset)):
-        dataset[i][1] -= 1
-    return dataset
+    return labels - 1
 
 
 
