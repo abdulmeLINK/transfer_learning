@@ -34,8 +34,11 @@ def load_dataset(test_size=0.2, batch_size=32):
     y_train = adjust_labels(y_train)
     y_test = adjust_labels(y_test)
 
+    # Get the number of classes
+    num_classes = len(set(lfw_people.target))
+
     # Create DataLoader objects
     train_loader = DataLoader(list(zip(X_train, y_train)), batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(list(zip(X_test, y_test)), batch_size=batch_size, shuffle=False)
 
-    return train_loader, test_loader
+    return train_loader, test_loader, num_classes

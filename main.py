@@ -1,7 +1,6 @@
 import argparse
 import torch
 import torch.nn as nn
-from torch.utils.data import DataLoader
 from utils.dataset import load_dataset
 from models.alexnet import AlexNet
 from models.resnet import ResNet
@@ -74,9 +73,7 @@ if __name__ == "__main__":
 
 
     # Load and split the dataset
-    train_set, test_set = load_dataset()
-
-    num_classes = len(train_set.classes + test_set.classes)  # Calculate the number of classes in the dataset
+    train_set, test_set, num_classes = load_dataset()
     
     if args.model == "AlexNet":
         model = AlexNet(num_classes)
