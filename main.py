@@ -61,14 +61,14 @@ if __name__ == "__main__":
     parser.add_argument("--bypass_train", action="store_true", help="Bypass the training phase")
     args = parser.parse_args()
 
-    # Create an instance of the selected model
-    if args.model == "AlexNet":
-        model = AlexNet()
-    elif args.model == "ResNet":
-        model = ResNet()
-    elif args.model == "VGG":
-        model = VGG()
+    num_classes = 2  # Number of classes in your new dataset (male and female)
 
+    if args.model == "AlexNet":
+        model = AlexNet(num_classes)
+    elif args.model == "ResNet":
+        model = ResNet(num_classes)
+    elif args.model == "VGG":
+        model = VGG(num_classes)
     # Load and split the dataset
     train_set, test_set = load_dataset()
 
@@ -76,8 +76,6 @@ if __name__ == "__main__":
     train_loader = DataLoader(train_set, batch_size=32, shuffle=True)
     test_loader = DataLoader(test_set, batch_size=32, shuffle=False)
 
-    # Modify the model
-    num_classes = 2  # Number of classes in your new dataset
     model = modify_model(model, num_classes)
 
     if not args.bypass_train:
