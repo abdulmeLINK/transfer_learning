@@ -27,7 +27,10 @@ def modify_model(model, num_classes, scenario):
     return model
 
 
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
 def train_model(model, train_loader):
+    model = model.to(device)
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
@@ -35,6 +38,7 @@ def train_model(model, train_loader):
         model.train()
         running_loss = 0.0
         for inputs, labels in train_loader:
+            inputs, labels = inputs.to(device), labels.to(device)
             optimizer.zero_grad()
             outputs = model(inputs)
             loss = criterion(outputs, labels)
@@ -44,10 +48,12 @@ def train_model(model, train_loader):
         print(f"Epoch {epoch + 1}, Loss: {running_loss / len(train_loader)}")
 
 def test_model(model, test_loader):
+    model = model.to(device)
     correct = 0
     total = 0
     with torch.no_grad():
         for inputs, labels in test_loader:
+            inputs, labels = inputs.to(device), labels.to(device)
             outputs = model(inputs)
             _, predicted = torch.max(outputs, 1)
             total += labels.size(0)
