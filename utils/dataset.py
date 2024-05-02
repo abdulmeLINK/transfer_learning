@@ -1,3 +1,4 @@
+from sklearn.datasets import fetch_lfw_people
 import torch
 from torchvision import transforms
 from torch.utils.data import DataLoader
