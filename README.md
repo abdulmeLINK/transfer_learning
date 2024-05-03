@@ -1,4 +1,4 @@
-# Project Name
+# Transfer Learning
 
 This project is a classification task on the LFW dataset using AlexNet, ResNet, and VGG-16 models.
 
@@ -65,7 +65,9 @@ To bypass the training phase and load pre-trained weights, use the `--bypass_tra
 python main.py --model VGG --scenario 4 --bypass_train
 ```
 
+## Results
+Accuracy Points Order:
+ResNet > VGG > AlexNet
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-```
