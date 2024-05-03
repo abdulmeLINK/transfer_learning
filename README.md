@@ -1,35 +1,36 @@
+
 # Transfer Learning
 
 This project is a classification task on the LFW (Labeled Faces in the Wild) dataset using three different pre-trained models: AlexNet, ResNet, and VGG-16. The goal is to leverage these pre-trained models and apply transfer learning techniques to perform face recognition tasks.
 
-## Project Structure
-
-The project has the following structure:
-
 ```
-my-project
+├── dataset/
 ├── main.py
 ├── models
 │   ├── alexnet.py
 │   ├── resnet.py
 │   └── vgg.py
+├── README.md
+├── tests.ipynb
+├── tests.sh
+├── requirements.txt
 ├── utils
 │   └── dataset.py
-├── weights
-│   ├── AlexNet_Scenario1.pt
-│   ├── AlexNet_Scenario2.pt
-│   ├── AlexNet_Scenario3.pt
-│   ├── AlexNet_Scenario4.pt
-│   ├── ResNet_Scenario1.pt
-│   ├── ResNet_Scenario2.pt
-│   ├── ResNet_Scenario3.pt
-│   ├── ResNet_Scenario4.pt
-│   ├── VGG_Scenario1.pt
-│   ├── VGG_Scenario2.pt
-│   ├── VGG_Scenario3.pt
-│   └── VGG_Scenario4.pt
-└── README.md
+└── weights
+    ├── AlexNet_Scenario1.pt
+    ├── AlexNet_Scenario2.pt
+    ├── AlexNet_Scenario3.pt
+    ├── AlexNet_Scenario4.pt
+    ├── ResNet_Scenario1.pt
+    ├── ResNet_Scenario2.pt
+    ├── ResNet_Scenario3.pt
+    ├── ResNet_Scenario4.pt
+    ├── VGG_Scenario1.pt
+    ├── VGG_Scenario2.pt
+    ├── VGG_Scenario3.pt
+    └── VGG_Scenario4.pt
 ```
+
 
 ## Files Description
 
@@ -40,6 +41,13 @@ my-project
 - `utils/dataset.py`: This file contains utility functions for handling the LFW dataset. It includes methods for splitting the dataset into training and testing sets, as well as performing stratified splitting based on the labels.
 
 - `weights/`: This directory contains the weight parameters for the different scenarios of each model. The weight files are named according to the model and scenario they belong to.
+
+- `dataset/`: This directory contains the LFW dataset used for training and testing the models.
+
+- `tests.ipynb`: This Jupyter notebook contains the code for running tests and visualizing the results in a more comprehensive manner.
+
+- `tests.sh`: This shell script is used to run the tests in a batch mode.
+- `requirements.txt`: This file lists the Python packages that your project depends on. Each line of the file specifies a package and its version number. You can use this file to install the same packages in another environment with the command `pip install -r requirements.txt`. This ensures that your project's dependencies are consistent across different environments, which helps prevent bugs and compatibility issues.
 
 ## Usage
 
@@ -62,6 +70,10 @@ To bypass the training phase and load pre-trained weights, use the `--bypass_tra
 ```
 python main.py --model VGG --scenario 4 --bypass_train
 ```
+
+## Training Time
+
+Running all trainings together on a T4 GPU on Google Colab takes approximately 250 seconds.
 
 ## Results
 
