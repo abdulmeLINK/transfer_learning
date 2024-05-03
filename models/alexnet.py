@@ -32,9 +32,7 @@ class AlexNet(nn.Module):
 
     def forward(self, x):
         x = self.features(x)
-        print(x.size())  # Print the size of the feature map after the features layer
         x = self.avgpool(x)
-        print(x.size())  # Print the size of the feature map after the avgpool layer
         x = torch.flatten(x, 1)
         x = self.classifier(x)
         return x
