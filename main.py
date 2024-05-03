@@ -27,7 +27,7 @@ def modify_model(model, num_classes, scenario):
     return model
 
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') # Check if GPU is available
 
 def train_model(model, train_loader):
     model = model.to(device)
