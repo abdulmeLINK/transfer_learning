@@ -4,7 +4,6 @@
 This project is a classification task on the LFW (Labeled Faces in the Wild) dataset using three different pre-trained models: AlexNet, ResNet, and VGG-16. The goal is to leverage these pre-trained models and apply transfer learning techniques to perform face recognition tasks.
 
 ```
-├── dataset/
 ├── main.py
 ├── models
 │   ├── alexnet.py
