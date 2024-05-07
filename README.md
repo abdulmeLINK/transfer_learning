@@ -41,8 +41,6 @@ This project is a classification task on the LFW (Labeled Faces in the Wild) dat
 
 - `weights/`: This directory contains the weight parameters for the different scenarios of each model. The weight files are named according to the model and scenario they belong to.
 
-- `dataset/`: This directory contains the LFW dataset used for training and testing the models.
-
 - `tests.ipynb`: This Jupyter notebook contains the code for running tests and visualizing the results in a more comprehensive manner.
 
 - `tests.sh`: This shell script is used to run the tests in a batch mode.
